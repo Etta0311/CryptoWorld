@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+      integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
+      crossorigin="anonymous"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./assets/css/style.css"/>
+    <title>Weather Dashboard</title>
+  </head>
+
+<body>
+
+    <header class="jumbotron">
+        <h1 class="display-3">Crypto Finder</h1>
+        <p id="currentDay" class="lead"></p>
+      </header>
+      <div class="container-fluid">
+          <div class="row">
+          <div class="col-lg-3">
+              <!--city search and history here, localstorage here as well-->
+            <form id="search-form" class="form w-100">
+                <p>Search Crypto name</p>
+                <input id="cryptoInput" class="form-input w-100" type="text" placeholder="City Name">
+                <button class="btn btn-block btn-outline-primary w-100" type="button" id= "checkCoin">Check Weather</button>
+            </form>
+            <div id= "history">
+                <button class="btn btn-block btn-outline-primary w-100" type="button" id= "clearHistory">Clear</button>
+            </div>
+          </div>
+
+          <div class="col-lg-9">
+              <div id="displayWeather"></div>
+              <!--weather deets here-->
+              <!-- 5 day forcast here-->
+          </div>
+          </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <!--create JS file and link here-->
+    <script src="./assets/js/script.js"></script>
+  </body>
+</html>
