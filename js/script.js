@@ -1,3 +1,9 @@
+$(document).ready(function(){
+
+    $('.sidenav').sidenav();
+
+  });
+  
 //Use moment.js to get today's date and display in currentDay element
 var currentDay = moment().format("dddd, Do MMMM, YYYY");
 $("#currentDay").text("Today is " + currentDay);
