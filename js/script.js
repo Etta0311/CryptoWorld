@@ -1,82 +1,60 @@
-$(document).ready(function(){
 
-    $('.sidenav').sidenav();
+var inputCrypto = document.getElementById("inputEl");
+var searchBtn = document.getElementById("submitButton");
+var cryptoName = document.getElementById("Crypto");
+var cryptoIcon = document.getElementById("logo");
+var cryptoRank = document.getElementById("rank");
+var cryptoPrice = document.getElementById("price");
+var cryptoSupply = document.getElementById("supply");
+var cryptoMktCg = document.getElementById("marketChange");
 
+
+// CORS Proxy
+const proxyUrl = "https://neon-cors-proxy.herokuapp.com/"
+
+// Nomics API variables
+const nomicsApiUrl = "https://api.nomics.com/v1/currencies/ticker?key=";
+const nomicsApiKey = "cebaa59e568aca5912a3e5870ec3327e210d485d";
+
+// CoinCap Api variables
+const coinCapApiUrl = `https://api.coincap.io/v2/assets/`;
+const coinCapApiKey = new Headers();
+coinCapApiKey.set("Authorization", "Bearer f3d5db36-3146-45e5-97fa-618fd419efc2")
+
+// event listener
+
+searchBtn.addEventListener('click', cryptoAPI)
+// api caller
+async function cryptoAPI(){
+ await fetch(proxyUrl + coinCapApiUrl + inputCrypto.value , {headers: coinCapApiKey})
+ .then(response => response.json())
+ .then((data)=>{
+     displayData(data);
+     return
+ })
+ .catch((error) => {
+    console.log("error")
   });
-  
-//Use moment.js to get today's date and display in currentDay element
-var currentDay = moment().format("dddd, Do MMMM, YYYY");
-$("#currentDay").text("Today is " + currentDay);
 
-//page element vriables
-var checkCoinButton = document.getElementById("checkCoin");
-
-//change colour for time of day (e.g sunrise/sunset orange, midday blue, night dark grey);
-var currentHour = moment().hour();
-console.log(currentHour);
-
-//page element vriables
-var checkWeatherButton = document.getElementById("checkWeather");
-//var clearHistoryButton = document.getElementById("clearHistory");
-//clearHistoryButton.style.display = "none"; // hide clear button on page load
-
-//var displayWeatherEl = document.querySelector("#displayWeather");
-var cryptoInput = document.querySelector("#cryptoInput");
-
-//var apiKey = "3b8940c3-822d-435a-b25b-6977ddfbb10f";
-
-function getCoinName(event) { //search coin after button click
-    event.preventDefault();
-    var coin = cryptoInput.value.trim();
-
-    if (coin) { //call first api and send to local storage
-        //displayWeatherEl.textContent = "";
-        getApi(coin);
-        //storeCity();
-        //var cityName = document.createElement("h1");
-        //cityName.textContent = city.toUpperCase();
-        //clearHistoryButton.style.display = "block";
-
-        //displayWeatherEl.appendChild(cityName);
-    } else {
-        alert("Please enter a valid cryptocurrency");
-    }
 }
 
-//fetch api
-function getApi(coin) {
-    var requestURL = 'https://api.coincap.io/v2/assets/' + coin;
+// this will assing api data to index.html
+function displayData(data){
+    console.log(data.data.name)
+    cryptoName.textContent = data.data.name;
+    cryptoRank.textContent = "Rank: " + data.data.rank;
+    cryptoPrice.textContent = "Price: USD$" + parseFloat(data.data.priceUsd).toFixed(2);
+    cryptoSupply.textContent = "Supply: " + parseFloat(data.data.supply).toFixed(2);
+    cryptoMktCg.textContent = "Market Change in 24hr: " + parseFloat(data.data.changePercent24Hr).toFixed(2) + "%";
 
-    fetch(requestURL)
-    .then(function (response) {
-        if(response.ok) { // if response found
-      console.log(response.status);
-      return response.json();
-        } else {
-            throw new console.error(("Fetch denied"));
-        }
+    // getting crypto icon from another api
+   fetch(proxyUrl + nomicsApiUrl + nomicsApiKey + "&ids=" + data.data.symbol)
+   .then(response => response.json())
+   .then((secondApi)=>{
+    cryptoIcon.setAttribute("src", secondApi[0].logo_url)
+     return
     })
 
-    .then(function (data) {
-        console.log(data);
-        displayCoinData(data);
-    });
+    
+
 }
-
-function displayCoinData(data) {
-
-    var cryptoInfoBox = document.createElement("div");
-    var coinInfoArray = [
-        //data to get here
-
-    ];
-
-    for (let index = 0; index < coinInfoArray.length; index++) {
-        var sectionInfo = document.createElement("p");
-        sectionInfo.textContent = coinInfoArray[index];
-        cryptoInfoBox.appendChild(sectionInfo); //append current weather data to display element
-
-    }
-}
-
-checkCoinButton.addEventListener("click", getCoinName);
