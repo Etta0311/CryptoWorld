@@ -42,19 +42,22 @@
     <body>
       <div class="container">
           <div class="row">
-            <input type="text" id="inputEl" class="form-control"  placeholder="Get your weather check - Enter a city">
+            <input type="text" id="inputEl" class="form-control"  placeholder="Insert Crypto Currency">
             <button type="button" class="btn btn-danger col-12" id="submitButton">Search</button>
         </div>      
           <div class="row">
-            <div class="col s3">1</div>
+            <div class="col s3"></div>
           </div>      
       </div>
 
       <div class="row">
         <div class="col s12 m4">
           <div class="icon-block">
-            <h2 class="material-icons small">About us </i></h2>
-            <p class="light">We offer blah blah blah.</p>
+            <h2 class="material-icons small"><span id="Crypto"></span> <img id="logo"></h2>
+            <p class="light" id="rank"></p>
+            <p class="light" id="price"></p>
+            <p class="light" id="supply"></p>
+            <p class="light" id="marketChange"></p>
           </div>
         </div>
 
@@ -88,6 +91,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
     <!--create JS file and link here-->
-    <script src="./assets/js/script.js"></script>
+    <script src="./js/script.js"></script>
   </body>
 </html>
