@@ -27,13 +27,13 @@
     <div class="#01579b light-blue darken-4 center nav-wrapper">
       <ul id="nav-mobile" class="hide-on-med-and-down">
         <!-- reload home page -->
-        <li><a href=".nav-wrapper" class="waves-effect waves-light btn">HOME</a></li>
+        <li><a href="#" class="waves-effect waves-light btn">HOME</a></li>
         <!-- link to another html showing about us and contact info -->
-        <li><a href="Information.html #Section-one" class="waves-effect waves-light btn">ABOUT</a></li>
+        <li><a href="#" class="waves-effect waves-light btn">ABOUT</a></li>
         <!-- if we can get a news api, reload page to show news feed in -->
-        <li><a href="Information.html #Section-two" class="waves-effect waves-light btn">PRICES</a></li>
+        <li><a href="./timeline.html" class="waves-effect waves-light btn">PRICES</a></li>
         <!-- list of cryptos and links on info api? -->
-        <li><a href="news.html" class="waves-effect waves-light btn">NEWS</a></li>
+        <li><a href="#" class="waves-effect waves-light btn">NEWS</a></li>
       </ul>
     </div>
   </nav>
@@ -51,9 +51,9 @@
       </div>
 
       <div class="row">
-        <div class="col s12 m4">
+        <div class="col s3">
           <div class="icon-block">
-            <h2 class="material-icons small"><span id="Crypto"></span> <img id="logo"></h2>
+            <h2 class="material-icons small"><span class="crypto"></span> <img id="logo"></h2>
             <p class="light" id="rank"></p>
             <p class="light" id="price"></p>
             <p class="light" id="supply"></p>
@@ -61,17 +61,10 @@
           </div>
         </div>
 
-        <div class="col s12 m4">
+        <div class="col s9">
           <div class="icon-block">
-            <h2 class="material-icons small">About us </i></h2>
-            <p class="light">We offer blah blah blah.</p>
-          </div>
-        </div>
-
-        <div class="col s12 m4">
-          <div class="icon-block">
-            <h2 class="material-icons small">About us </i></h2>
-            <p class="light">We offer blah blah blah.</p>
+            <h2 class="material-icons small">About <span class="crypto"></span></h2>
+            <p class="light" id="aboutCrypto"></p>
           </div>
         </div>
       </div>
