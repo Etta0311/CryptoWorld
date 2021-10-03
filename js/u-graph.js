@@ -41,15 +41,26 @@ async function displayGraph(data){
    .then(response => response.json())
    .then((secondApi)=>{
        console.log(secondApi[0].prices);
-    createChart(secondApi);
-    
-    console.log(secondApi);
+       
+       console.log(secondApi);
+       resetState();
+       createChart(secondApi);
      return
     })
 }
+var addHere = document.getElementById("newTetas");
 function createChart(secondApi) {    
-    var chart = anychart.column(secondApi[0].prices);    
+    var chart = anychart.column(secondApi[0].prices); 
+    var div = document.createElement('div');
+    div.id = 'container';
+    addHere.appendChild(div);
+    console.log(div);   
     chart.container('container');
     chart.draw();
 
 };
+function resetState(){
+    while (addHere.firstChild){
+        addHere.removeChild(addHere.firstChild)
+    }
+}
