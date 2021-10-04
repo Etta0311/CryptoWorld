@@ -14,7 +14,7 @@ var cryptoMktCg = document.getElementById("marketChange");
 var watchlist = document.getElementById("watchlist");
 var addtoWatchlistBtn = document.getElementById("addToWatchlistButton");
 
-//addtoWatchlistBtn.addEventListener('click', addToWatchlist);
+addtoWatchlistBtn.addEventListener('click', addToWatchlist);
 
 // CORS Proxy
 const proxyUrl = "https://neon-cors-proxy.herokuapp.com/"
@@ -60,6 +60,11 @@ async function cryptoAPI(coin){
 
 }
 
+//setup localStorage
+//var savedItems = [];
+//savedItems.push(JSON.parse(localStorage.getItem("saved")));
+//localStorage.setItem("saved", JSON.stringify(savedItems));
+
 // this will assing api data to index.html
 function displayData(data){
 
@@ -90,42 +95,31 @@ function displayData(data){
     cryptoIcon.setAttribute("src", secondApi[0].logo_url);
      return;
     });
-
-    addtoWatchlistBtn.addEventListener('click', function() {
-      var savedItems = JSON.parse(localStorage.getItem("saved")) || [];
+  }
+  
+  function addToWatchlist() {
+    var savedItems = JSON.parse(localStorage.getItem("saved")) || [];
+    //savedItems = [];
+    watchlist.textContent = 'Watchlist';
       //save relevant info to object
         var basicInfo = {
-          Name: data.data.name,
-          Ticker : data.data.symbol,
-          USD$ : parseFloat(data.data.priceUsd).toFixed(2),
-          Id : data.data.id,
-          change : parseFloat(data.data.changePercent24Hr).toFixed(2) + " %",
+          Name: cryptoName.textContent,
+          Ticker : cryptoTicker.textContent.replace("Ticker: ", ""),
+          Logo : cryptoIcon.innerHTML,
+          USD$ : cryptoPrice.textContent.replace("Price: USD$", ""),
+          change : cryptoMktCg.textContent.replace("Market Change in 24hr: ", ""),
         }
 
         savedItems.push(basicInfo);
-        //watchlist.innerHTML="";
         localStorage.setItem("saved", JSON.stringify(savedItems));
         displayWatchlist(savedItems);
-    });
   }
 
-    //localStorage function
-   /* function addToWatchlist() {
-      var savedItems = JSON.parse(localStorage.getItem("saved")) || [];
-        savedItems.push(inputCrypto.value);
-        watchlist.innerHTML="";
-        //var key = data.data.symbol;
-        //var cryptoid = data.data.id;
-        localStorage.setItem("saved", JSON.stringify(savedItems));
-        //localStorage.setItem(key, cryptoid);
-        displayWatchlist(savedItems);
-    };*/
+  function displayWatchlist(savedArray) {
+      savedArray = JSON.parse(localStorage.getItem("saved"));
 
-  function displayWatchlist(savedItems) {
-      savedItems = JSON.parse(localStorage.getItem("saved"));
-
-      for (let index = 0; index < savedItems.length; index++) {
-        var item = document.createElement("table");
+      for (let index = 0; index < savedArray.length; index++) {
+        var item = document.createElement("table"); //create table
         var newRow = item.insertRow(0);
 
         //create the required cells
@@ -133,39 +127,53 @@ function displayData(data){
         cell2 = newRow.insertCell(1);
         cell3 = newRow.insertCell(2);
         cell4 = newRow.insertCell(3);
+        cell5 = newRow.insertCell(4);
 
         //performance indicator 
-        if (savedItems[index].change < 0) {
-          cell4.style.color = "red";
+        if (savedArray[index].change < 0) {
+          cell5.style.color = "red";
+          cell5.textContent = savedArray[index].change;
         } else {
-          cell4.style.color = "green";
+          cell5.style.color = "green";
+          cell5.textContent = savedArray[index].change;
         }
 
-        //add text from data to cells
-        cell1.textContent = savedItems[index].Name;
-        cell2.textContent = savedItems[index].Ticker;
-        cell3.textContent = "US $" + savedItems[index].USD$;
-        cell4.textContent = savedItems[index].change;
+        //add text from array data to cells
+        cell1.textContent = savedArray[index].Name;
+        cell2.textContent = savedArray[index].Ticker;
+        cell3.innerHTML = savedArray[index].Logo;
+        cell4.textContent = "US $" + savedArray[index].USD$;
+        //cell5.textContent = savedArray[index].change;
 
-        var removeBtn = document.createElement('button');
-        removeBtn.textContent = "X";
         watchlist.appendChild(item);
-        //watchlist.appendChild(removeBtn);
 
-        item.addEventListener("click", function() { //working
-          console.log("You are trying to load " + savedItems[index]);
-          cryptoAPI(savedItems[index].Id);
-      });
-  
-        removeBtn.addEventListener('click', function() { //working
+        //add and append view coin button
+        var viewCoinBtn = document.createElement('button');
+        viewCoinBtn.textContent = "View";
+        viewCoinBtn.classList.add("view");
+        item.appendChild(viewCoinBtn);
+
+        viewCoinBtn.addEventListener('click', function() { //working
+          var convert = savedArray[index].Name.toLowerCase();
+          console.log("Loading " + convert);
+          cryptoAPI(convert);
+        });
+
+        //add and append remove coin button
+        var removeCoinBtn = document.createElement('button');
+        removeCoinBtn.textContent = "X";
+        removeCoinBtn.classList.add("delete");
+        item.append(removeCoinBtn);
+
+        removeCoinBtn.addEventListener('click', function() { //working
           savedItems = JSON.parse(localStorage.getItem("saved"));
-          console.log('removing ' +savedItems[index]);
+          console.log('removing ' + savedItems[index].Name);
           savedItems.splice(index, 1);
           localStorage.setItem("saved", JSON.stringify(savedItems));
 
-          //need to fix removing assets from page, produces error for some reason
+          //Not working properly yet
           watchlist.removeChild(item);
-          watchlist.removeChild(removeBtn)
         });
+
       }
-}
+    }
