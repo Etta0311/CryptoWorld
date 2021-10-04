@@ -125,15 +125,32 @@ function displayData(data){
       savedItems = JSON.parse(localStorage.getItem("saved"));
 
       for (let index = 0; index < savedItems.length; index++) {
-        var item = document.createElement("div"); 
-        //testing purposes, put in table for real
-        item.textContent = savedItems[index].Name + " | " + savedItems[index].Ticker + " | " + 
-        "US $ " + savedItems[index].USD$ + " | " + savedItems[index].change; 
+        var item = document.createElement("table");
+        var newRow = item.insertRow(0);
+
+        //create the required cells
+        cell1 = newRow.insertCell(0);
+        cell2 = newRow.insertCell(1);
+        cell3 = newRow.insertCell(2);
+        cell4 = newRow.insertCell(3);
+
+        //performance indicator 
+        if (savedItems[index].change < 0) {
+          cell4.style.color = "red";
+        } else {
+          cell4.style.color = "green";
+        }
+
+        //add text from data to cells
+        cell1.textContent = savedItems[index].Name;
+        cell2.textContent = savedItems[index].Ticker;
+        cell3.textContent = "US $" + savedItems[index].USD$;
+        cell4.textContent = savedItems[index].change;
 
         var removeBtn = document.createElement('button');
         removeBtn.textContent = "X";
         watchlist.appendChild(item);
-        watchlist.appendChild(removeBtn);
+        //watchlist.appendChild(removeBtn);
 
         item.addEventListener("click", function() { //working
           console.log("You are trying to load " + savedItems[index]);
