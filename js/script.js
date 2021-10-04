@@ -9,6 +9,7 @@ var cryptoRank = document.getElementById("rank");
 var cryptoPrice = document.getElementById("price");
 var cryptoSupply = document.getElementById("supply");
 var cryptoMktCg = document.getElementById("marketChange");
+var cryptoConvert = document.getElementById("converter");
 
 
 var watchlist = document.getElementById("watchlist");
@@ -60,12 +61,7 @@ async function cryptoAPI(coin){
 
 }
 
-//setup localStorage
-//var savedItems = [];
-//savedItems.push(JSON.parse(localStorage.getItem("saved")));
-//localStorage.setItem("saved", JSON.stringify(savedItems));
-
-// this will assing api data to index.html
+// this will assign api data to index.html
 function displayData(data){
 
     console.log(data);
@@ -96,6 +92,9 @@ function displayData(data){
      return;
     });
   }
+
+  //get rates api
+
   
   function addToWatchlist() {
     var savedItems = JSON.parse(localStorage.getItem("saved")) || [];
@@ -177,3 +176,40 @@ function displayData(data){
 
       }
     }
+
+    function getCurrencyConverter() {
+      fetch(proxyUrl + coinCapApiUrl + "rates/" + inputCrypto.value , {headers: coinCapApiKey})
+      .then(response => response.json())
+      .then((data)=>{
+        console.log(data);
+      currencyConverter(data);
+       return
+      })
+      .catch((error) => {
+      console.log("error: ")
+      });
+}
+
+//bare bones currency converter beginning
+function currencyConverter(data) {
+  //var base = cryptoPrice.textContent.replace("Price: USD$", "");
+  var base = 57000;
+  var currencyToConvert = data.data[24].id;
+  
+  var currencySymbol = document.createElement('p');
+  var currencyRate = document.createElement('p');
+  
+  currencySymbol = data.data[24].symbol;
+  currencyRate = data.data[24].rateUsd;
+
+  var compare = parseFloat(base/currencyRate).toFixed(2);
+
+  console.log(currencyToConvert);
+  console.log(currencySymbol);
+  console.log(currencyRate);
+  console.log(currencySymbol + ": " + compare);
+
+  //cryptoConvert.textContent = currencySymbol;
+}
+
+getCurrencyConverter();
