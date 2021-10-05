@@ -4,6 +4,7 @@
 
 ## Table of Contents
    - User Story
+   - Overview
    - Used Platforms & API
    - Usage
    - Credits
@@ -15,7 +16,7 @@
     I WANT a platform able to search for cryptocurrencies and all related info
     SO THAT I can keep myself updated with cryptocurrencies trend at one time.
 
-## About this project
+## Overview
 
     Here we'd like to introduce our platform -- Cryptoworld. 
     This website is designed to enable user to be acquainted with lastest info of the cryptcurrencies they are looking for.
@@ -27,6 +28,12 @@
         - Historical Price
         - Barcharts showing currencies trend 
         - Related Announcement / News for searched currency
+
+## User Story
+
+    AS a cryptocurrencies investor
+    I WANT a platform able to search for cryptocurrencies and all related info
+    SO THAT I can keep myself updated with cryptocurrencies trend at one time.
 
 ## Used Platforms & API
      - HTML
@@ -72,9 +79,3 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 =======
-
-
-How To Use
-Input the full coin name or symbol into search box and click search button, info of coin shows.
-
-Choose celebrity or input networth and choose crypto converter to convert networth to crypto coin value (e.g. $200 net worth = 0.0001 coin)
