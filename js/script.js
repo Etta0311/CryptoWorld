@@ -10,6 +10,8 @@ var cryptoPrice = document.getElementById("price");
 var cryptoSupply = document.getElementById("supply");
 var cryptoMktCg = document.getElementById("marketChange");
 var cryptoConvert = document.getElementById("converter");
+var currencySelected = document.getElementsByClassName("currencySelected");
+var currencySelector = document.getElementById("currencySelector");
 
 
 var watchlist = document.getElementById("watchlist");
@@ -56,15 +58,14 @@ async function cryptoAPI(coin){
      return
  })
  .catch((error) => {
-    console.log("error: ")
+    console.log("error: " + error)
   });
 
 }
 
 // this will assign api data to index.html
 function displayData(data){
-
-    console.log(data);
+    //console.log(data);
     cryptoName.textContent = data.data.name;
     cryptoTicker.textContent = "Ticker: " + data.data.symbol;
     cryptoRank.textContent = "Rank: " + data.data.rank;
@@ -84,16 +85,56 @@ function displayData(data){
     cryptoMktCg.textContent = "Market Change in 24hr: ";
     cryptoMktCg.append(marketChg);
 
-    // getting crypto icon from another api
+    // call second api getting crypto icon from another api
    fetch(proxyUrl + nomicsApiUrl + nomicsApiKey + "&ids=" + data.data.symbol)
    .then(response => response.json())
    .then((secondApi)=>{
+     //console.log(secondApi);
     cryptoIcon.setAttribute("src", secondApi[0].logo_url);
      return;
+    })
+    .catch((error) => {
+      console.log("error: " + error)
+    });
+
+    // call third api
+    fetch(proxyUrl + coinCapApiUrl + "rates" , {headers: coinCapApiKey})
+    .then(response => response.json())
+    .then((thirdApi)=>{
+
+      console.log(thirdApi);
+
+
+      var base = cryptoPrice.textContent.replace("Price: USD$", "");
+      console.log("This is the current US price: " + base);
+
+      //testing
+      currencySymbol = thirdApi.data[0].symbol;
+      currencyRate = thirdApi.data[0].rateUsd;
+      currencyToConvert = thirdApi.data[0].id;
+
+      for (let i = 0; i < currencySelector.length; i++) {
+
+      var currencyToConvert = thirdApi.data[i].id;
+      console.log("This is the currency to convert " +currencyToConvert);
+  
+
+      //currencySymbol = thirdApi.data[i].symbol;
+      //currencyRate = thirdApi.data[i].rateUsd;
+      }
+
+      var compare = parseFloat(base/currencyRate).toFixed(2);
+
+      console.log("The price of 1 " + inputCrypto.value + " in " + currencyToConvert + " is $" + compare);
+
+      cryptoConvert.textContent = currencySymbol;
+     return;
+    })
+    .catch((error) => {
+      console.log("error: " + error)
     });
   }
 
-  //get rates api
 
   
   function addToWatchlist() {
@@ -145,6 +186,9 @@ function displayData(data){
         //cell5.textContent = savedArray[index].change;
 
         watchlist.appendChild(item);
+        console.log("watchlist");
+        console.log(watchlist);
+
 
         //add and append view coin button
         var viewCoinBtn = document.createElement('button');
@@ -171,13 +215,15 @@ function displayData(data){
           localStorage.setItem("saved", JSON.stringify(savedItems));
 
           //Not working properly yet
+          console.log(watchlist);
+          console.log(item);
           watchlist.removeChild(item);
         });
 
       }
     }
 
-    function getCurrencyConverter() {
+   /* function getCurrencyConverter() {
       fetch(proxyUrl + coinCapApiUrl + "rates/" + inputCrypto.value , {headers: coinCapApiKey})
       .then(response => response.json())
       .then((data)=>{
@@ -188,28 +234,26 @@ function displayData(data){
       .catch((error) => {
       console.log("error: ")
       });
-}
+}*/
 
 //bare bones currency converter beginning
-function currencyConverter(data) {
+function currencyConverter(thirdApi) {
   //var base = cryptoPrice.textContent.replace("Price: USD$", "");
-  var base = 57000;
-  var currencyToConvert = data.data[24].id;
+  //var base = 57000;
+  //var currencyToConvert = thirdApi.data[24].id;
   
-  var currencySymbol = document.createElement('p');
-  var currencyRate = document.createElement('p');
+  //var currencySymbol = document.createElement('p');
+  //var currencyRate = document.createElement('p');
   
-  currencySymbol = data.data[24].symbol;
-  currencyRate = data.data[24].rateUsd;
+  //currencySymbol = thirdApi.data[24].symbol;
+  //currencyRate = thirdApi.data[24].rateUsd;
 
-  var compare = parseFloat(base/currencyRate).toFixed(2);
+  //var compare = parseFloat(base/currencyRate).toFixed(2);
 
-  console.log(currencyToConvert);
-  console.log(currencySymbol);
-  console.log(currencyRate);
-  console.log(currencySymbol + ": " + compare);
+  //console.log(currencyToConvert);
+  //console.log(currencySymbol);
+  //console.log(currencyRate);
+  //console.log(currencySymbol + ": " + compare);
 
   //cryptoConvert.textContent = currencySymbol;
 }
-
-getCurrencyConverter();
