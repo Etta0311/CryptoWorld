@@ -1,1 +1,18 @@
-/*CSS goes here*/
+header {
+    font-family: 'Train One', cursive;
+    opacity: 0.6;
+    background-position: center;
+    background-size: cover;
+}
+
+body {
+    font-family: 'Tomorrow', sans-serif;
+}
+#logo{
+    width: 100px;
+    height: 100px;
+}
+/* .nav-wrapper {
+    color: #0d47a1 blue darken-4
+} */
+
