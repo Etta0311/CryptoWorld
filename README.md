@@ -43,6 +43,7 @@
      - Moment.JS
      - Tailwindcss / Materialise
      - Coincap API
+     - Nomics API
 
 
 ## Usage
