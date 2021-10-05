@@ -19,9 +19,31 @@ coinCapApiKey.set("Authorization", "Bearer f3d5db36-3146-45e5-97fa-618fd419efc2"
 
 
 // event listener
-
 secSearchBtn.addEventListener('click', cryptoGraph)
-// api caller
+
+// fetch('https://min-api.cryptocompare.com/data/v2/news/?lang=EN&api_key=392a6d28d1f929c7a2e3db3d676655f975b2750caac92c06341c1239ade1fbc3')
+// .then(response => response.json())
+// .then((loco)=>{
+    //     console.log(loco.Data[0].imageurl);
+    //     for( var i=0; i < 10; i++){
+        //         var maindiv = document.createElement('div');
+        //         var div = document.createElement('p');
+        //         var p = document.createElement('h3');
+        //         var image = document.createElement('img');
+        //         addHere.appendChild(maindiv)
+        //         maindiv.classList.add("col","s3")
+        //         div.textContent = loco.Data[i].body
+        //         p.textContent = loco.Data[i].title
+        //         image.setAttribute("src", loco.Data[i].imageurl)
+        //         maindiv.appendChild(p)
+        //         maindiv.appendChild(div)
+        //         maindiv.appendChild(image)
+        //     }
+        //     return
+        // })
+
+        
+        // api caller
 async function cryptoGraph(){
  await fetch(proxyUrl + coinCapApiUrl + inputCrypto.value.trim().toLowerCase() , {headers: coinCapApiKey})
  .then(response => response.json())
@@ -53,20 +75,22 @@ function createChart(secondApi) {
     
     var div = document.createElement('canvas');
     div.id = 'myChart';
-    addHere.appendChild(div);  
-    
-    // var chart = anychart.column(secondApi[0].prices); 
-    // chart.container('container');
-    // chart.draw();
-    
+    addHere.appendChild(div); 
+    var chama = []
+    for(var i=0; i < secondApi[0].timestamps.length; i++) {
 
-
+        var nossa = secondApi[0].timestamps[i].substr(0, 10);
+        console.log(nossa);
+        chama.push(nossa);        
+    }
+    console.log(chama)
     // canvas
+    
     var ctx = document.getElementById('myChart');
     var myChart = new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: secondApi[0].timestamps,
+            labels: chama,
             datasets: [{
                 label: 'Crypto Data',
                 data: secondApi[0].prices,
@@ -90,6 +114,11 @@ function createChart(secondApi) {
 
     
 };
+function resetState(){
+    while (addHere.firstChild){
+        addHere.removeChild(addHere.firstChild)
+    }
+}
 // colors
 // backgroundColor: [
 //     'rgba(255, 99, 132, 0.2)',
@@ -107,8 +136,3 @@ function createChart(secondApi) {
 //     'rgba(153, 102, 255, 1)',
 //     'rgba(255, 159, 64, 1)'
 // ]
-function resetState(){
-    while (addHere.firstChild){
-        addHere.removeChild(addHere.firstChild)
-    }
-}
