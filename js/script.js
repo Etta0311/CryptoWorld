@@ -1,4 +1,3 @@
-
 var inputCrypto = document.getElementById("inputEl");
 var searchBtn = document.getElementById("submitButton");
 
@@ -12,6 +11,8 @@ var cryptoMktCg = document.getElementById("marketChange");
 var cryptoConvert = document.getElementById("converter");
 var currencySelected = document.getElementsByClassName("currencySelected");
 var currencySelector = document.getElementById("currencySelector");
+
+var message = document.getElementById("message");
 
 
 var watchlist = document.getElementById("watchlist");
@@ -41,8 +42,10 @@ function getCoin(event) { //search city after button click
 
   if (coin) { //call first api and send to local storage
       cryptoAPI(coin);
+      message.textContent= "";
   } else {
-      alert("Please enter a valid cryptoCurrency");
+      message.textContent = "Please enter a valid cryptocurrency with no capital letters e.g. bitcoin";
+      message.style.color = "red";
       return;
   }
 }
@@ -65,7 +68,6 @@ async function cryptoAPI(coin){
 
 // this will assign api data to index.html
 function displayData(data){
-    //console.log(data);
     cryptoName.textContent = data.data.name;
     cryptoTicker.textContent = "Ticker: " + data.data.symbol;
     cryptoRank.textContent = "Rank: " + data.data.rank;
@@ -81,7 +83,6 @@ function displayData(data){
     }
 
     marketChg.textContent = parseFloat(data.data.changePercent24Hr).toFixed(2) + " %";
-
     cryptoMktCg.textContent = "Market Change in 24hr: ";
     cryptoMktCg.append(marketChg);
 
@@ -89,7 +90,6 @@ function displayData(data){
    fetch(proxyUrl + nomicsApiUrl + nomicsApiKey + "&ids=" + data.data.symbol)
    .then(response => response.json())
    .then((secondApi)=>{
-     //console.log(secondApi);
     cryptoIcon.setAttribute("src", secondApi[0].logo_url);
      return;
     })
@@ -104,9 +104,13 @@ function displayData(data){
 
       console.log(thirdApi);
 
-
       var base = cryptoPrice.textContent.replace("Price: USD$", "");
       console.log("This is the current US price: " + base);
+
+      for (let index = 0; index < thirdApi.data.length; index++) {
+        const element = thirdApi.data[index];
+        
+      }
 
       //testing
       currencySymbol = thirdApi.data[0].symbol;
@@ -118,7 +122,6 @@ function displayData(data){
       var currencyToConvert = thirdApi.data[i].id;
       console.log("This is the currency to convert " +currencyToConvert);
   
-
       //currencySymbol = thirdApi.data[i].symbol;
       //currencyRate = thirdApi.data[i].rateUsd;
       }
@@ -135,8 +138,6 @@ function displayData(data){
     });
   }
 
-
-  
   function addToWatchlist() {
     var savedItems = JSON.parse(localStorage.getItem("saved")) || [];
     //savedItems = [];
@@ -145,7 +146,6 @@ function displayData(data){
         var basicInfo = {
           Name: cryptoName.textContent,
           Ticker : cryptoTicker.textContent.replace("Ticker: ", ""),
-          Logo : cryptoIcon.innerHTML,
           USD$ : cryptoPrice.textContent.replace("Price: USD$", ""),
           change : cryptoMktCg.textContent.replace("Market Change in 24hr: ", ""),
         }
@@ -155,11 +155,12 @@ function displayData(data){
         displayWatchlist(savedItems);
   }
 
-  function displayWatchlist(savedArray) {
-      savedArray = JSON.parse(localStorage.getItem("saved"));
+  function displayWatchlist(data) {
+      savedthirdApi.data = JSON.parse(localStorage.getItem("saved"));
 
-      for (let index = 0; index < savedArray.length; index++) {
+      for (let index = 0; index < savedthirdApi.data.length; index++) {
         var item = document.createElement("table"); //create table
+        item.setAttribute("data-watchlistIndex", index);
         var newRow = item.insertRow(0);
 
         //create the required cells
@@ -170,90 +171,54 @@ function displayData(data){
         cell5 = newRow.insertCell(4);
 
         //performance indicator 
-        if (savedArray[index].change < 0) {
-          cell5.style.color = "red";
-          cell5.textContent = savedArray[index].change;
+        if (savedthirdApi.data[index].change < 0) {
+          cell4.style.color = "red";
         } else {
-          cell5.style.color = "green";
-          cell5.textContent = savedArray[index].change;
+          cell4.style.color = "green";
         }
 
-        //add text from array data to cells
-        cell1.textContent = savedArray[index].Name;
-        cell2.textContent = savedArray[index].Ticker;
-        cell3.innerHTML = savedArray[index].Logo;
-        cell4.textContent = "US $" + savedArray[index].USD$;
-        //cell5.textContent = savedArray[index].change;
+        //add text from thirdApi.data data to cells
+        cell1.textContent = savedthirdApi.data[index].Name;
+        cell2.textContent = savedthirdApi.data[index].Ticker;
+        cell3.textContent = "US $" + savedthirdApi.data[index].USD$;
+        cell4.textContent = savedthirdApi.data[index].change;
 
         watchlist.appendChild(item);
-        console.log("watchlist");
-        console.log(watchlist);
-
-
-        //add and append view coin button
+        
+        //create and append view coin button
         var viewCoinBtn = document.createElement('button');
         viewCoinBtn.textContent = "View";
-        viewCoinBtn.classList.add("view");
         item.appendChild(viewCoinBtn);
 
         viewCoinBtn.addEventListener('click', function() { //working
-          var convert = savedArray[index].Name.toLowerCase();
-          console.log("Loading " + convert);
-          cryptoAPI(convert);
+          cryptoAPI(savedthirdApi.data[index].Name.toLowerCase());
         });
 
-        //add and append remove coin button
+        //create and append remove coin button
         var removeCoinBtn = document.createElement('button');
+        removeCoinBtn.setAttribute("data-removeButtonIndex", index);
         removeCoinBtn.textContent = "X";
-        removeCoinBtn.classList.add("delete");
-        item.append(removeCoinBtn);
+        item.appendChild(removeCoinBtn);
 
-        removeCoinBtn.addEventListener('click', function() { //working
-          savedItems = JSON.parse(localStorage.getItem("saved"));
-          console.log('removing ' + savedItems[index].Name);
-          savedItems.splice(index, 1);
-          localStorage.setItem("saved", JSON.stringify(savedItems));
+          removeCoinBtn.addEventListener('click', function(event) {
+            savedItems = JSON.parse(localStorage.getItem("saved"));
+            var index = event.target.getAttribute("data-removeButtonIndex");
 
-          //Not working properly yet
-          console.log(watchlist);
-          console.log(item);
-          watchlist.removeChild(item);
-        });
+            //force clear hack as event.currentarget was leaving one or two records in local storage sometimes
+            if (index = 0 ) {
+              savedItems.length = 0;
+            }
 
+            savedItems.splice(index, 1);
+            localStorage.setItem("saved", JSON.stringify(savedItems));
+
+            //remove item from watchlist
+            event.currentTarget.parentNode.remove();
+
+        }, false);
+      
       }
+      
     }
 
-   /* function getCurrencyConverter() {
-      fetch(proxyUrl + coinCapApiUrl + "rates/" + inputCrypto.value , {headers: coinCapApiKey})
-      .then(response => response.json())
-      .then((data)=>{
-        console.log(data);
-      currencyConverter(data);
-       return
-      })
-      .catch((error) => {
-      console.log("error: ")
-      });
-}*/
-
-//bare bones currency converter beginning
-function currencyConverter(thirdApi) {
-  //var base = cryptoPrice.textContent.replace("Price: USD$", "");
-  //var base = 57000;
-  //var currencyToConvert = thirdApi.data[24].id;
-  
-  //var currencySymbol = document.createElement('p');
-  //var currencyRate = document.createElement('p');
-  
-  //currencySymbol = thirdApi.data[24].symbol;
-  //currencyRate = thirdApi.data[24].rateUsd;
-
-  //var compare = parseFloat(base/currencyRate).toFixed(2);
-
-  //console.log(currencyToConvert);
-  //console.log(currencySymbol);
-  //console.log(currencyRate);
-  //console.log(currencySymbol + ": " + compare);
-
-  //cryptoConvert.textContent = currencySymbol;
-}
+    

@@ -44,6 +44,7 @@
           <div class="row">
             <input type="text" id="inputEl" class="form-control"  placeholder="Insert Crypto Currency">
             <button type="button" class="btn btn-danger col-12" id="submitButton">Search</button>
+            <p class="light" id="message"></p>
         </div>      
           <div class="row">
             <div class="col s3"></div>
@@ -58,7 +59,15 @@
             <p class="light" id="rank"></p>
             <p class="light" id="price"></p>
             <p class="light" id="converter"></p>
-            <select class="light" id="currencySelector"></select>
+            
+            <!--currency select box-->
+            <select class="form-control" aria-label="Default select example">
+              <option selected>Open this select menu</option>
+              <option value="1">One</option>
+              <option value="2">Two</option>
+              <option value="3">Three</option>
+            </select>
+
             <p class="light" id="currencySelected"></p>
             <p class="light" id="supply"></p>
             <p class="light" id="marketChange"></p>
