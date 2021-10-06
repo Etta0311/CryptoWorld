@@ -23,36 +23,21 @@
           <!-- link to another html showing about us and contact info -->
           <li><a href="#" class="waves-effect waves-light btn">ABOUT</a></li>
           <!-- if we can get a news api, reload page to show news feed in -->
-          <li><a href="#" class="waves-effect waves-light btn">PRICES</a></li>
+          <li><a href="./timeline.html" class="waves-effect waves-light btn">PRICES</a></li>
           <!-- list of cryptos and links on info api? -->
-          <li><a href="./news.html" class="waves-effect waves-light btn">NEWS</a></li>
+          <li><a href="#" class="waves-effect waves-light btn">NEWS</a></li>
         </ul>
       </div>
     </nav>
     
     
     <body>
-      <div class="flex m-4 extraPadding" >
-        <div class="col s3">
-          <div class="row">
-            <li>Crypto Currency:</li>
-            <input type="text" id="inputCrypto" class="form-control"  placeholder="Insert Crypto Currency">
-            <li>From:</li>
-            <input type="text" id="inputStartDate" class="form-control"  placeholder="Insert Start Date">
-            <li>To:</li>
-            <input type="text" id="inputEndDate" class="form-control"  placeholder="Insert End Date">
-            <button type="button" class="btn btn-danger col-12" id="searchBtn">Search</button>   
-          </div>   
-        </div>
+         <div class="flex m-4 extraPadding" >
+
+            <div class="row" id="newTetas">
+            </div>
+        </div>       
         
-        
-        <div class="col s9">
-          <div class="row" id="newTetas">
-            <!-- <div id="container"></div>      -->
-            <canvas id="myChart" width="80" height="20"></canvas>
-          </div>
-        </div>
-      </div>
           
         </body>
         
@@ -71,6 +56,6 @@
         <!--create JS file and link here-->
         <script src="https://cdn.anychart.com/releases/8.10.0/js/anychart-core.min.js"></script>
         <script src="https://cdn.anychart.com/releases/8.10.0/js/anychart-cartesian.min.js"></script>
-        <script src="./js/u-graph.js"></script>
+        <script src="./js/news.js"></script>
       </body>
 </html>
