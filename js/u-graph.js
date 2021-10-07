@@ -39,10 +39,7 @@ async function displayGraph(data){
     "&start=" + startDate.value.trim() + "T00:00:00Z" +
      "&end=" + endDate.value.trim() + "T00:00:00Z")
    .then(response => response.json())
-   .then((secondApi)=>{
-       console.log(secondApi[0].prices);
-       
-       console.log(secondApi);
+   .then((secondApi)=>{       
        resetState();
        createChart(secondApi);
      return
@@ -57,10 +54,8 @@ function createChart(secondApi) {
     for(var i=0; i < secondApi[0].timestamps.length; i++) {
 
         var nossa = secondApi[0].timestamps[i].substr(0, 10);
-        console.log(nossa);
         chama.push(nossa);        
     }
-    console.log(chama)
     // canvas
     
     var ctx = document.getElementById('myChart');
