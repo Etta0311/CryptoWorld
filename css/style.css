@@ -12,6 +12,12 @@ body {
     width: 100px;
     height: 100px;
 }
+#aboutCrypto{
+    font-size: large;
+}
+.extraPadding{
+    padding: 30px;
+}
 /* .nav-wrapper {
     color: #0d47a1 blue darken-4
 } */
