@@ -2,7 +2,7 @@ var inputCrypto = document.getElementById("inputCrypto");
 var startDate = document.getElementById("inputStartDate");
 var endDate = document.getElementById("inputEndDate");
 var secSearchBtn = document.getElementById("searchBtn");
-var addHere = document.getElementById("newTetas");
+var addHere = document.getElementById("chartContainer");
 
 
 // CORS Proxy
@@ -21,29 +21,6 @@ coinCapApiKey.set("Authorization", "Bearer f3d5db36-3146-45e5-97fa-618fd419efc2"
 // event listener
 secSearchBtn.addEventListener('click', cryptoGraph)
 
-// fetch('https://min-api.cryptocompare.com/data/v2/news/?lang=EN&api_key=392a6d28d1f929c7a2e3db3d676655f975b2750caac92c06341c1239ade1fbc3')
-// .then(response => response.json())
-// .then((loco)=>{
-    //     console.log(loco.Data[0].imageurl);
-    //     for( var i=0; i < 10; i++){
-        //         var maindiv = document.createElement('div');
-        //         var div = document.createElement('p');
-        //         var p = document.createElement('h3');
-        //         var image = document.createElement('img');
-        //         addHere.appendChild(maindiv)
-        //         maindiv.classList.add("col","s3")
-        //         div.textContent = loco.Data[i].body
-        //         p.textContent = loco.Data[i].title
-        //         image.setAttribute("src", loco.Data[i].imageurl)
-        //         maindiv.appendChild(p)
-        //         maindiv.appendChild(div)
-        //         maindiv.appendChild(image)
-        //     }
-        //     return
-        // })
-
-        
-        // api caller
 async function cryptoGraph(){
  await fetch(proxyUrl + coinCapApiUrl + inputCrypto.value.trim().toLowerCase() , {headers: coinCapApiKey})
  .then(response => response.json())
@@ -136,3 +113,6 @@ function resetState(){
 //     'rgba(153, 102, 255, 1)',
 //     'rgba(255, 159, 64, 1)'
 // ]
+
+
+
