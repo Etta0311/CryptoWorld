@@ -107,28 +107,26 @@ function displayData(data){
       var base = cryptoPrice.textContent.replace("Price: USD$", "");
       console.log("This is the current US price: " + base);
 
-      for (let index = 0; index < thirdApi.data.length; index++) {
-        const element = thirdApi.data[index];
-        
-      }
+      currencyOptions = [
+        thirdApi.data[3], thirdApi.data[19], thirdApi.data[22], thirdApi.data[41], thirdApi.data[45], thirdApi.data[51], thirdApi.data[61], thirdApi.data[70],
+        thirdApi.data[91], thirdApi.data[94], thirdApi.data[99], thirdApi.data[103], thirdApi.data[108],
+        thirdApi.data[124], thirdApi.data[127], thirdApi.data[139], thirdApi.data[144], thirdApi.data[149],
+        thirdApi.data[151], thirdApi.data[156], thirdApi.data[159], thirdApi.data[161], thirdApi.data[168],
+    ]
 
-      //testing
-      currencySymbol = thirdApi.data[0].symbol;
-      currencyRate = thirdApi.data[0].rateUsd;
-      currencyToConvert = thirdApi.data[0].id;
+    var select = document.createElement("select"); 
 
-      for (let i = 0; i < currencySelector.length; i++) {
+      for (let index = 0; index < currencyOptions.length; index++) {
+        var currency = currencyOptions[index];
+        var option = document.createElement("option");
+        select.appendChild(option);
 
-      var currencyToConvert = thirdApi.data[i].id;
-      console.log("This is the currency to convert " +currencyToConvert);
-  
-      //currencySymbol = thirdApi.data[i].symbol;
-      //currencyRate = thirdApi.data[i].rateUsd;
+        currencySymbol = currency.symbol;
+        currencyRate = currency.rateUsd;
+        currencyToConvert = currency.id;
       }
 
       var compare = parseFloat(base/currencyRate).toFixed(2);
-
-      console.log("The price of 1 " + inputCrypto.value + " in " + currencyToConvert + " is $" + compare);
 
       cryptoConvert.textContent = currencySymbol;
      return;
