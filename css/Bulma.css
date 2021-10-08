@@ -14,7 +14,7 @@ nav{
 
 .searchbox {
     height: 850px;
-    padding: 150px 100px;
+    padding: 120px 100px;
     background-image: url(./images/bg.jpg);
     background-repeat: no-repeat;
     background-size: cover;
@@ -22,9 +22,18 @@ nav{
 }
 
 .Btnstyle {
-    top: 30%;
+    top: 25%;
     left: 47%;
     position: absolute;
+}
+
+.carddisplay {
+    width: 500px;
+    position: absolute;
+    padding: 20px;
+    border: 5px solid blue;
+    top: 17vw;
+    text-align: center;
 }
 
 .footerstyle {
@@ -39,6 +48,29 @@ li {
     color: white;
     font-weight: 600;
     line-height: 60px;
+}
+
+.newsbox {
+    border: 10px double yellow;
+    margin: 10px;
+    padding: 40px;
+    background-color: #5499C7 ;
+    color: white;
+}
+
+.cardlink {
+    color: yellow;
+}
+
+.newsbg {
+    background-image: url(./images/newsbg.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    opacity: 1.0;
+}
+
+.newsheader{
+    font-size: 20px;
 }
 
 @media screen and (max-width: 768px) {

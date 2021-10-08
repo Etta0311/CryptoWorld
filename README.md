@@ -44,6 +44,7 @@
      - Tailwindcss / Materialise
      - Coincap API
      - Nomics API
+     - News API
 
 
 ## Usage
