@@ -1,6 +1,5 @@
 var inputCrypto = document.getElementById("inputEl");
 var searchBtn = document.getElementById("submitButton");
-
 var cryptoName = document.getElementById("Crypto");
 var cryptoTicker = document.getElementById("ticker");
 var cryptoIcon = document.getElementById("logo");
@@ -11,14 +10,13 @@ var cryptoMktCg = document.getElementById("marketChange");
 var cryptoConvert = document.getElementById("converter");
 var currencySelected = document.getElementsByClassName("currencySelected");
 var currencySelector = document.getElementById("currencySelector");
-
 var message = document.getElementById("message");
-
-
 var watchlist = document.getElementById("watchlist");
 var addtoWatchlistBtn = document.getElementById("addToWatchlistButton");
 
-addtoWatchlistBtn.addEventListener('click', addToWatchlist);
+addtoWatchlistBtn.style.display = "none";
+
+var savedItems = [];
 
 // CORS Proxy
 const proxyUrl = "https://neon-cors-proxy.herokuapp.com/"
@@ -74,6 +72,8 @@ function displayData(data){
     cryptoPrice.textContent = "Price: USD$" + parseFloat(data.data.priceUsd).toFixed(2);
     cryptoSupply.textContent = "Supply: " + parseFloat(data.data.supply).toFixed(2);
 
+    addtoWatchlistBtn.style.display = "block";
+
     //performance indicator 
     var marketChg = document.createElement('span');
     if (data.data.changePercent24Hr < 0) {
@@ -102,33 +102,17 @@ function displayData(data){
     .then(response => response.json())
     .then((thirdApi)=>{
 
-      console.log(thirdApi);
-
       var base = cryptoPrice.textContent.replace("Price: USD$", "");
-      console.log("This is the current US price: " + base);
 
-      currencyOptions = [
-        thirdApi.data[3], thirdApi.data[19], thirdApi.data[22], thirdApi.data[41], thirdApi.data[45], thirdApi.data[51], thirdApi.data[61], thirdApi.data[70],
-        thirdApi.data[91], thirdApi.data[94], thirdApi.data[99], thirdApi.data[103], thirdApi.data[108],
-        thirdApi.data[124], thirdApi.data[127], thirdApi.data[139], thirdApi.data[144], thirdApi.data[149],
-        thirdApi.data[151], thirdApi.data[156], thirdApi.data[159], thirdApi.data[161], thirdApi.data[168],
-    ]
-
-    var select = document.createElement("select"); 
-
-      for (let index = 0; index < currencyOptions.length; index++) {
-        var currency = currencyOptions[index];
-        var option = document.createElement("option");
-        select.appendChild(option);
-
-        currencySymbol = currency.symbol;
-        currencyRate = currency.rateUsd;
-        currencyToConvert = currency.id;
+      //rates data seems to be dynamically so id isn't static as I first thought, have to specify id to find the index
+      for (let index = 0; index < thirdApi.data.length; index++) {
+        if(thirdApi.data[index].id === "australian-dollar") {
+          ausDollar = thirdApi.data[index];
+          currencyRate = ausDollar.rateUsd;
+          var compare = parseFloat(base/currencyRate).toFixed(2);
+          cryptoPrice.textContent = "AUD: $" + compare;
+        }
       }
-
-      var compare = parseFloat(base/currencyRate).toFixed(2);
-
-      cryptoConvert.textContent = currencySymbol;
      return;
     })
     .catch((error) => {
@@ -137,9 +121,10 @@ function displayData(data){
   }
 
   function addToWatchlist() {
-    var savedItems = JSON.parse(localStorage.getItem("saved")) || [];
-    //savedItems = [];
     watchlist.textContent = 'Watchlist';
+    
+    var savedItems = JSON.parse(localStorage.getItem("saved")) || [];
+
       //save relevant info to object
         var basicInfo = {
           Name: cryptoName.textContent,
@@ -148,15 +133,31 @@ function displayData(data){
           change : cryptoMktCg.textContent.replace("Market Change in 24hr: ", ""),
         }
 
-        savedItems.push(basicInfo);
-        localStorage.setItem("saved", JSON.stringify(savedItems));
-        displayWatchlist(savedItems);
-  }
+        //prevent duplicates (sort of working)
+        if (savedItems.some(e => e.Name === basicInfo.Name)) {
+          console.log("True");
+          addtoWatchlistBtn.textContent = "Already Added";
+          addtoWatchlistBtn.classList.add("disabled");
+          //link to watchlist if clicked again
+          window.location.reload();
+        } else {
+          console.log("False");
+          savedItems.push(basicInfo);
+          localStorage.setItem("saved", JSON.stringify(savedItems));
+          displayWatchlist();
+        }
+}
 
-  function displayWatchlist(data) {
-      savedthirdApi.data = JSON.parse(localStorage.getItem("saved"));
+  function displayWatchlist() {
+    var subheading = document.createElement("h6");
+    //subheading.textContent = localStorage.length + " added to watchlist";
+    watchlist.appendChild(subheading);
 
-      for (let index = 0; index < savedthirdApi.data.length; index++) {
+    var savedItems = JSON.parse(localStorage.getItem("saved")) || [];
+
+      for (let index = 0; index < savedItems.length; index++) {
+        subheading.textContent = savedItems.length + " added to watchlist";
+
         var item = document.createElement("table"); //create table
         item.setAttribute("data-watchlistIndex", index);
         var newRow = item.insertRow(0);
@@ -166,20 +167,12 @@ function displayData(data){
         cell2 = newRow.insertCell(1);
         cell3 = newRow.insertCell(2);
         cell4 = newRow.insertCell(3);
-        cell5 = newRow.insertCell(4);
-
-        //performance indicator 
-        if (savedthirdApi.data[index].change < 0) {
-          cell4.style.color = "red";
-        } else {
-          cell4.style.color = "green";
-        }
 
         //add text from thirdApi.data data to cells
-        cell1.textContent = savedthirdApi.data[index].Name;
-        cell2.textContent = savedthirdApi.data[index].Ticker;
-        cell3.textContent = "US $" + savedthirdApi.data[index].USD$;
-        cell4.textContent = savedthirdApi.data[index].change;
+        cell1.textContent = savedItems[index].Name;
+        cell2.textContent = savedItems[index].Ticker;
+        cell3.textContent = savedItems[index].USD$;
+        cell4.textContent = savedItems[index].change;
 
         watchlist.appendChild(item);
         
@@ -189,7 +182,7 @@ function displayData(data){
         item.appendChild(viewCoinBtn);
 
         viewCoinBtn.addEventListener('click', function() { //working
-          cryptoAPI(savedthirdApi.data[index].Name.toLowerCase());
+          cryptoAPI(cell1.textContent.toLowerCase());
         });
 
         //create and append remove coin button
@@ -200,14 +193,19 @@ function displayData(data){
 
           removeCoinBtn.addEventListener('click', function(event) {
             savedItems = JSON.parse(localStorage.getItem("saved"));
+
+            subheading.textContent = savedItems.length;
             var index = event.target.getAttribute("data-removeButtonIndex");
 
             //force clear hack as event.currentarget was leaving one or two records in local storage sometimes
             if (index = 0 ) {
               savedItems.length = 0;
+              //subheading.textContent = index;
             }
 
+            //remove item from local Storage
             savedItems.splice(index, 1);
+            subheading.textContent = savedItems.length + " added to watchlist";
             localStorage.setItem("saved", JSON.stringify(savedItems));
 
             //remove item from watchlist
@@ -218,5 +216,7 @@ function displayData(data){
       }
       
     }
+
+    addtoWatchlistBtn.addEventListener('click', addToWatchlist);
 
     
