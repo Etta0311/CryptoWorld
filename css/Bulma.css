@@ -32,8 +32,17 @@ nav{
     position: absolute;
     padding: 20px;
     border: 5px solid blue;
-    top: 17vw;
+    top: 16vw;
     text-align: center;
+    min-height: 500px;
+}
+
+.description {
+    left: 650px;
+    width: 1000px;
+    font-size: 10px;
+    overflow: auto;
+    max-height: 500px;
 }
 
 .footerstyle {

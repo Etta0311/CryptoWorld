@@ -1,4 +1,3 @@
-
 var inputCrypto = document.getElementById("inputEl");
 var searchBtn = document.getElementById("submitButton");
 var cryptoName = document.querySelectorAll(".crypto");
