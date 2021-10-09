@@ -24,24 +24,29 @@ const nomicsApiUrl = "https://api.nomics.com/v1/currencies/ticker?key=";
 const nomicsApiKey = "cebaa59e568aca5912a3e5870ec3327e210d485d";
 
 // CoinCap Api variables
-const coinCapApiUrl = `https://api.coincap.io/v2/`;
+const coinCapApiUrl = "https://api.coincap.io/v2/";
 const coinCapApiKey = new Headers();
 coinCapApiKey.set("Authorization", "Bearer f3d5db36-3146-45e5-97fa-618fd419efc2")
 
 
 //____________INDEX PAGE CONTENT: SEARCH BAR AND CRYPTO INFO
 if($("body").data("title") === "indexPage") {
-  var savedItems = JSON.parse(localStorage.getItem("saved"));
+
+  /*var savedItems = JSON.parse(localStorage.getItem("saved"));
 
   //if nothing in search box and localStorage > 0
   if(savedItems.length >= 0 && inputCrypto.textContent == "") {
   for (let index = 0; index < savedItems.length; index++) {
-    var viewedCrypto = savedItems[index].Index;
-  cryptoAPI(savedItems[viewedCrypto].Name.toLowerCase());
+    var viewedCrypto = savedItems[index].Name;
+    console.log(viewedCrypto);
+    cryptoAPI(viewedCrypto.toLowerCase());
   }
+}
   } else if (inputCrypto.value != null) {
     searchBtn.addEventListener('click', getCoin);
-  }
+  }*/
+
+searchBtn.addEventListener('click', getCoin);
 
 addtoWatchlistBtn.style.display = "none";
 function getCoin(event) { //search coin after button click
@@ -78,7 +83,6 @@ function displayData(data){
     cryptoName.textContent = data.data.name;
     cryptoTicker.textContent = "Ticker: " + data.data.symbol;
     cryptoRank.textContent = "Rank: " + data.data.rank;
-    cryptoPrice.textContent = "Price: USD$" + parseFloat(data.data.priceUsd).toFixed(2);
     cryptoSupply.textContent = "Supply: " + parseFloat(data.data.supply).toFixed(2);
 
     addtoWatchlistBtn.style.display = "block";
@@ -110,14 +114,13 @@ function displayData(data){
     fetch(proxyUrl + coinCapApiUrl + "rates" , {headers: coinCapApiKey})
     .then(response => response.json())
     .then((thirdApi)=>{
-      var base = cryptoPrice.textContent.replace("Price: USD$", "");
+      var base = parseFloat(data.data.priceUsd).toFixed(2);
 
-      //rates data seems to be dynamically so id isn't static as I first thought, have to specify id to find the index
+      //rates data is created dynamically from coincap api so id isn't static as I first thought, have to specify id to find the index
       for (let index = 0; index < thirdApi.data.length; index++) {
         if(thirdApi.data[index].id === "australian-dollar") {
-          ausDollar = thirdApi.data[index];
-          currencyRate = ausDollar.rateUsd;
-          var compare = parseFloat(base/currencyRate).toFixed(2);
+          ausDollar = thirdApi.data[index].rateUsd;
+          var compare = parseFloat(base/ausDollar).toFixed(2);
           cryptoPrice.textContent = "AUD: $" + compare;
         }
       }
@@ -126,11 +129,10 @@ function displayData(data){
     .catch((error) => {
       console.log("error: " + error)
     });
-  }
+}
 
   function addToWatchlist() {
     //watchlist.textContent = 'Watchlist';
-    
     var savedItems = JSON.parse(localStorage.getItem("saved")) || [];
 
       //save relevant info to object
@@ -142,18 +144,17 @@ function displayData(data){
           Index : savedItems.length,
         }
 
-        //prevent duplicates (sort of working)
+        //prevent duplicates
         if (savedItems.some(e => e.Name === basicInfo.Name)) {
           addtoWatchlistBtn.textContent = "Already Added";
           addtoWatchlistBtn.classList.add("disabled");
           var message = document.createElement('p');
           cryptoMktCg.appendChild(message);
-          //link to watchlist if clicked again
+          //Reload to index.html if clicked again
           message.textContent = "Already added";
           message.style.color = "red";
           setTimeout(function() {
-            self.location = "index.html";
-            //window.location.href = "watchlist.html";   
+            self.location = "index.html"; 
         }, 1500);
 
         } else {
@@ -202,16 +203,17 @@ addtoWatchlistBtn.addEventListener('click', addToWatchlist);
         //create and append view coin button
         var viewCoinBtn = document.createElement('button');
         viewCoinBtn.textContent = "View";
-        viewCoinBtn.setAttribute("data-viewButtonIndex", index);
+        viewCoinBtn.setAttribute("data-clicked", index);
         item.appendChild(viewCoinBtn);
 
         viewCoinBtn.addEventListener('click', function() {
-          window.location.href = "index.html";
+          //if (event.currentTarget) {
+            //window.location.href = "index.html";
+        //}
         });
 
         //create and append remove coin button
         var removeCoinBtn = document.createElement('button');
-        removeCoinBtn.setAttribute("data-removeButtonIndex", index);
         removeCoinBtn.textContent = "X";
         item.appendChild(removeCoinBtn);
 
@@ -219,7 +221,6 @@ addtoWatchlistBtn.addEventListener('click', addToWatchlist);
             savedItems = JSON.parse(localStorage.getItem("saved"));
 
             subheading.textContent = savedItems.length;
-            var index = event.target.getAttribute("data-removeButtonIndex");
 
             //force clear hack as event.currentarget was leaving one or two records in local storage sometimes
             if (index = 0 ) {
