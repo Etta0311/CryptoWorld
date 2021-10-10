@@ -44,3 +44,8 @@ p {
 .ChangePct {
   color: rgb(251, 53, 53);
 }
+
+img {
+  width: 20px;
+  height: 20px;
+}

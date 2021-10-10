@@ -9,7 +9,8 @@ fetch('https://min-api.cryptocompare.com/data/top/mktcapfull?limit=10&tsym=USD&a
                 
                 var cryptoIcon = document.createElement('img');
                 cryptoIcon.classList.add('cryptoIcon');
-                
+                cryptoIcon.classList.add("is-48x48");
+
                 var Cryptoname = document.createElement('p');
                 Cryptoname.classList.add('Cryptoname');
 
@@ -20,14 +21,14 @@ fetch('https://min-api.cryptocompare.com/data/top/mktcapfull?limit=10&tsym=USD&a
                 ChangePct.classList.add('ChangePct');
 
                 banner.appendChild(bannerinfo)
-                cryptoIcon.setAttribute("src", loco.Data[i].CoinInfo.ImageUrl)
+                cryptoIcon.setAttribute("src", "https://www.cryptocompare.com/" + loco.Data[i].CoinInfo.ImageUrl)
                 Cryptoname.textContent = loco.Data[i].CoinInfo.FullName
                 Price.textContent = "• Price (USD): (" + loco.Data[i].DISPLAY.USD.PRICE + ")" 
                 ChangePct.textContent = "• Change in Past 24 Hours: (" + loco.Data[i].DISPLAY.USD.CHANGEPCT24HOUR + "%)" 
                 bannerinfo.appendChild(Cryptoname)
                 bannerinfo.appendChild(Price)
                 bannerinfo.appendChild(ChangePct)
-
+                bannerinfo.appendChild(cryptoIcon)
             }
             return
         })
