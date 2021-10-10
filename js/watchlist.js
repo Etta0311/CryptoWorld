@@ -21,8 +21,8 @@ var cryptoDescription = document.getElementById("aboutCrypto");
 const proxyUrl = "https://neon-cors-proxy.herokuapp.com/"
 
 // Nomics API variables
-const nomicsApiUrl = "https://api.nomics.com/v1/currencies/ticker?key=";
-const nomicsApiKey = "cebaa59e568aca5912a3e5870ec3327e210d485d";
+const nomicsApiUrl = "https://api.nomics.com/v1/currencies";
+const nomicsApiKey = "?key=cebaa59e568aca5912a3e5870ec3327e210d485d";
 
 // CoinCap Api variables
 const coinCapApiUrl = "https://api.coincap.io/v2/";
@@ -101,15 +101,12 @@ function displayData(data){
     cryptoMktCg.append(marketChg);
 
     // call second api getting crypto icon from another api
-   fetch(proxyUrl + nomicsApiUrl + nomicsApiKey + "&ids=" + data.data.symbol)
-   .then(response => response.json())
-   .then((secondApi)=>{
-    cryptoIcon.setAttribute("src", secondApi[0].logo_url);
-     return;
-    })
-    .catch((error) => {
-      console.log("error: " + error)
-    });
+  //  fetch(proxyUrl + nomicsApiUrl + nomicsApiKey + "&ids=" + data.data.symbol)
+  //  .then(response => response.json())
+  //  .then((secondApi)=>{
+  //   cryptoIcon.setAttribute("src", secondApi[0].logo_url);
+  //    return;
+  //   })
 
     fetch(proxyUrl + nomicsApiUrl + nomicsApiKey + "&ids=" + data.data.symbol + "&attributes=logo_url,description" )
     .then(response => response.json())
@@ -118,6 +115,9 @@ function displayData(data){
      cryptoDescription.textContent = secondApi[0].description;
       return;
     })
+    .catch((error) => {
+      console.log("error: " + error)
+    });
 
 
     // call third api
