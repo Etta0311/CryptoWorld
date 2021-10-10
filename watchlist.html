@@ -16,7 +16,8 @@
     <title>CryptoWorld</title>
   </head>
 
-  <body>
+  <body data-title="watchlistPage">
+    
     <header class="section bgcolour">
       <div class="container">
         <h1 class="title is-1 text"> CRYPTOWORLD </h1>
@@ -33,11 +34,11 @@
             Cryptocurrency
           </a>
   
-          <a class="navbar-item text" href="news.html">
+          <a class="navbar-item text" href="./news.html">
             Latest News
           </a>
   
-          <a class="navbar-item text" href="charts.html"> 
+          <a class="navbar-item text" href="./charts.html"> 
             Trend
           </a>
 
@@ -46,23 +47,25 @@
           </a>
 
     </nav>
-  
-    <div class="row newsbg">
-        <div class="columns is-multiline is-centered m-0 py-3" id="newsbox"></div>
+
+    <div class="container">
+          <div class="row">
+            <h2 class="material-icons small" id="watchlist">Watchlist</i></h2>
+        </div>
     </div>
 
     <footer class="footer bgcolour footerstyle">
-      <div class="content has-text-centered">
+      <div class="content has-text-centered is-size-4">
         <p class="subtitle is-5 text">
           CryptoWorld &copy; 2021<br>
           Thanks for visiting us
         </p>
       </div>
     </footer>
-  
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
-      <!--create JS file and link here-->
-    <script src="./js/news.js"></script>
+    <!--create JS file and link here-->
+    <script src="./js/watchlist.js"></script>
   </body>
 </html>

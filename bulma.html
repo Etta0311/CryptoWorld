@@ -16,7 +16,7 @@
     <title>CryptoWorld</title>
   </head>
 
-  <body>
+  <body data-title="indexPage"> 
     <header class="section bgcolour">
       <div class="container">
         <h1 class="title is-1 text"> CRYPTOWORLD </h1>
@@ -41,7 +41,7 @@
             Trend
           </a>
 
-          <a class="navbar-item text" href=""> 
+          <a class="navbar-item text" href="./watchlist.html"> 
             Watchlist
           </a>
 
@@ -51,6 +51,7 @@
       <div>
          <input class="input is-large inputsize" id="inputEl" type="text" placeholder="Search a Currency...">
          <button class="button is-link is-rounded is-focused Btnstyle" id="submitButton">GO</button>
+         <p class="has-text-centered is-size-5" id="message"></p>
       </div>
       
       <div class="card carddisplay">
@@ -59,10 +60,13 @@
         </div>
 
         <div class="content">
+          <p class="has-text-centered is-size-4" id="ticker"></p>
           <p class="has-text-centered is-size-4" id="rank"></p>
           <p class="has-text-centered is-size-4" id="price"></p>
           <p class="has-text-centered is-size-4" id="supply"></p>
           <p class="has-text-centered is-size-4" id="marketChange"></p>
+          <p class="has-text-centered is-size-4" id="converter"></p>
+          <button type="button" class="button is-link is-rounded is-focused Btnstyle" id="addToWatchlistButton">Add to Watchlist</button>
         </div>
         
       </div>
@@ -88,5 +92,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
       <!--create JS file and link here-->
     <script src="./js/mainsearch.js"></script>
+    <script src="./js/watchlist.js"></script>
   </body>
 </html>
