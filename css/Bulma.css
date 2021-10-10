@@ -21,28 +21,35 @@ nav{
     opacity: 1.0;
 }
 
-.Btnstyle {
+.gobtn {
     top: 25%;
     left: 47%;
-    position: absolute;
+    position: relative;
+}
+.img {
+    max-width: 100%;
+    height: auto;
 }
 
 .carddisplay {
-    width: 500px;
+    width: 30vw;
     position: absolute;
     padding: 20px;
     border: 5px solid blue;
-    top: 16vw;
+    top: 300px;
+    line-height: 1;
     text-align: center;
     min-height: 500px;
+    max-height: 500px;
 }
 
 .description {
-    left: 650px;
-    width: 1000px;
+    left: 42vw;
+    width: 53vw;
     font-size: 10px;
     overflow: auto;
     max-height: 500px;
+    line-height: 1.5;
 }
 
 .footerstyle {
@@ -80,6 +87,13 @@ li {
 
 .newsheader{
     font-size: 20px;
+}
+@media screen and (max-width: 1300px) {
+   .carddisplay {
+       font-size: 10px;
+       overflow: scroll;
+   }
+   
 }
 
 @media screen and (max-width: 768px) {
