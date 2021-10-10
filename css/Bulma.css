@@ -35,12 +35,17 @@ nav{
     width: 30vw;
     position: absolute;
     padding: 20px;
-    border: 5px solid blue;
+    /*border: 5px solid blue;*/
+    border-radius: 10px;
     top: 300px;
     line-height: 1;
     text-align: center;
     min-height: 500px;
     max-height: 500px;
+}
+
+#infoBox {
+    overflow: hidden;
 }
 
 .description {
@@ -93,7 +98,7 @@ li {
        font-size: 10px;
        overflow: scroll;
    }
-   
+
 }
 
 @media screen and (max-width: 768px) {
