@@ -1,6 +1,6 @@
 # CRYPTOCURRENCY SEARCH ENGINE
 
-     Link: [description](final website link here)
+     Link: [CryptoWorld](final website link here)
 
 ## Table of Contents
    - User Story
@@ -48,11 +48,12 @@
 
 
 ## Usage
-![Demo](gif upload here)
+![Demo](./RMimages/CryptoWorld.gif)
 
 ## Contributors
 
-![contribution](screenshot upload here)
+![contribution](./RMimages/contributors.png)
+![contribution](./RMimages/contributes.png)
 
 ## Credits
     - https://coding-boot-camp.github.io/full-stack/github/professional-readme-guid
@@ -60,6 +61,9 @@
     - https://htmlcolorcodes.com/
     - https://cssgradient.io/
     - https://bulma.io/
+    - https://min-api.cryptocompare.com/data/top/mktcapfull?limit=10&tsym=USD&api_key=392a6d28d1f929c7a2e3db3d676655f975b2750caac92c06341c1239ade1fbc3
+    - https://min-api.cryptocompare.com/data/v2/news/?lang=EN&api_key=392a6d28d1f929c7a2e3db3d676655f975b2750caac92c06341c1239ade1fbc3
+
     
 ## License
 MIT License

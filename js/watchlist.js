@@ -96,14 +96,6 @@ function displayData(data){
     cryptoMktCg.textContent = "Market Change in 24hr: ";
     cryptoMktCg.append(marketChg);
 
-    // call second api getting crypto icon from another api
-  //  fetch(proxyUrl + nomicsApiUrl + nomicsApiKey + "&ids=" + data.data.symbol)
-  //  .then(response => response.json())
-  //  .then((secondApi)=>{
-  //   cryptoIcon.setAttribute("src", secondApi[0].logo_url);
-  //    return;
-  //   })
-
     fetch(proxyUrl + nomicsApiUrl + nomicsApiKey + "&ids=" + data.data.symbol + "&attributes=logo_url,description" )
     .then(response => response.json())
     .then((secondApi)=>{
@@ -160,7 +152,7 @@ function displayData(data){
           message.textContent = "Already added";
           message.style.color = "red";
           setTimeout(function() {
-            self.location = "index.html"; 
+            self.location = "watchlist.html"; 
         }, 1500);
 
         } else {
