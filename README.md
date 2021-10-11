@@ -44,6 +44,7 @@
      - Tailwindcss / Materialise
      - Coincap API
      - Nomics API
+     - News API
 
 
 ## Usage
@@ -56,6 +57,9 @@
 ## Credits
     - https://coding-boot-camp.github.io/full-stack/github/professional-readme-guid
     - https://choosealicense.com/
+    - https://htmlcolorcodes.com/
+    - https://cssgradient.io/
+    - https://bulma.io/
     
 ## License
 MIT License
