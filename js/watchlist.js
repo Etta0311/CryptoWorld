@@ -51,7 +51,7 @@ function getCoin(event) { //search coin after button click
   } else {
     message.textContent = "Please enter a valid cryptocurrency with no capital letters e.g. bitcoin";
     message.style.color = "red";
-    //message.style.backgroundColor = "white";
+    message.style.backgroundColor = "white";
     return;
   }
 }

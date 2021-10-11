@@ -9,7 +9,8 @@ fetch('https://min-api.cryptocompare.com/data/top/mktcapfull?limit=10&tsym=USD&a
                 
                 var cryptoIcon = document.createElement('img');
                 cryptoIcon.classList.add('cryptoIcon');
-                
+                cryptoIcon.classList.add("is-48x48");
+
                 var Cryptoname = document.createElement('p');
                 Cryptoname.classList.add('Cryptoname');
 
