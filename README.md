@@ -1,6 +1,6 @@
 # CRYPTOCURRENCY SEARCH ENGINE
 
-     Link: https://github.com/Etta0311/Group-project-1
+     Link: https://etta0311.github.io/Group-project-1/
 
 ## Table of Contents
    - User Story
@@ -48,11 +48,11 @@
 
 
 ## Usage
-![Demo](gif upload here)
 
 ## Contributors
 
-![contribution](screenshot upload here)
+
+<img width="956" alt="contributors" src="https://user-images.githubusercontent.com/85853539/136767615-41031574-a745-4b8a-ad8b-9bc6f6de307e.png">
 
 ## Credits
     - https://coding-boot-camp.github.io/full-stack/github/professional-readme-guid
