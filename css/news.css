@@ -1,0 +1,77 @@
+
+/* below is code for all bar news section */
+
+header {
+    font-family: 'Train One', cursive;
+    opacity: 0.6;
+    background-position: center;
+    background-size: cover;
+}
+
+body {
+    font-family: 'Tomorrow', sans-serif;
+}
+
+.nav-wrapper {
+    color: #0d47a1 blue darken-4
+}
+
+
+.bgcolour {
+    background: rgb(33,59,222);
+    background: linear-gradient(97deg, rgba(33,59,222,1) 0%, rgba(140,69,227,0.6951155462184874) 99%);
+}
+
+.text {
+    color: white;
+    text-align: center;
+}
+
+nav{
+    border-top: 5px solid white;
+}
+
+/* below is code for news section */
+
+
+
+.card-content {
+    font-size: 15px;
+    font-weight: 400;
+    color: rgb(83, 83, 83);
+    background-color: #cdb0f3;
+    border-radius: 0px 45px 0px 45px !important;
+}
+
+
+
+
+.columns {
+    width: 100%;
+
+}
+
+.newsbox {
+    margin: 10px;
+    padding: 30px;
+    background-color: #bfaaf2 ;
+    color: black;
+    border-radius: 25px;
+}
+
+.cardlink {
+    color: rgb(254, 254, 143);
+}
+
+.card-header {
+    font-size: 20px;
+    font-weight: 400;
+    justify-content: space-between;
+    
+}
+img {
+    width: 50px;
+    height:50px;
+    border-radius: 22px;
+  }
+

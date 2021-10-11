@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <link rel="stylesheet" href="./css/Bulma.css"/>
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    rel=”stylesheet”>
+    <link href="https://fonts.googleapis.com/css2?family=Tomorrow&family=Train+One&display=swap" 
+    rel="stylesheet">
+
+    <title>CryptoWorld</title>
+  </head>
+
+  <body data-title="indexPage"> 
+    <header class="section bgcolour">
+      <div class="container">
+        <h1 class="title is-1 text"> CRYPTOWORLD </h1>
+        <p class="subtitle is-3 text"> One Click with all you need about Crypto</p>
+      </div>
+    </header>
+  
+    <nav class="navbar is-justify-content-center bgcolour" role="navigation" aria-label="main navigation">    
+          <a class="navbar-item text" href="./index.html">
+            Home
+          </a>
+    
+          <a class="navbar-item text" href="./bulma.html">
+            Cryptocurrency
+          </a>
+  
+          <a class="navbar-item text" href="./news.html">
+            Latest News
+          </a>
+  
+          <a class="navbar-item text" href="./charts.html"> 
+            Trend
+          </a>
+
+          <a class="navbar-item text" href="./watchlist.html"> 
+            Watchlist
+          </a>
+
+    </nav>
+  
+    <div class="control searchbox">
+      <div>
+         <input class="input is-large inputsize" id="inputEl" type="text" placeholder="Search a Currency...">
+         <button class="button is-link is-rounded is-focused gobtn" id="submitButton">GO</button>
+         <p class="has-text-centered is-size-5" id="message"></p>
+      </div>
+      
+      <div class="card carddisplay" id="infoBox">
+        <div class="card-image">
+          <figure class="image is-3by1 mb-1"> <span id="Crypto"></span> <img id="logo"></figure>
+        </div>
+
+        <div class="content has-text-centered">
+          <p class="has-text-centered is-size-4" id="ticker"></p>
+          <p class="has-text-centered is-size-4" id="rank"></p>
+          <p class="has-text-centered is-size-4" id="price"></p>
+          <p class="has-text-centered is-size-4" id="supply"></p>
+          <p class="has-text-centered is-size-4" id="marketChange"></p>
+          <p class="has-text-centered is-size-4" id="converter"></p>
+          <button type="button" class="button is-link is-rounded is-focused is-fullwidth" id="addToWatchlistButton">Add to Watchlist</button>
+        </div>
+        
+      </div>
+     
+      <div class="card carddisplay description" id="infoBox2">
+        <div class="content">
+          <p class="has-text-centered is-size-4" id="aboutCrypto"></p>
+        </div>
+      </div>
+
+    </div>
+
+    <footer class="footer bgcolour footerstyle">
+      <div class="content has-text-centered is-size-4">
+        <p class="subtitle is-5 text">
+          CryptoWorld &copy; 2021<br>
+          Thanks for visiting us
+        </p>
+      </div>
+    </footer>
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+      <!--create JS file and link here-->
+
+    <script src="./js/watchlist.js"></script>
+  </body>
+</html>
