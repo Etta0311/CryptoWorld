@@ -1,7 +1,6 @@
 # CRYPTOCURRENCY SEARCH ENGINE
 
-     Link: [CryptoWorld](final website link here)
-
+     Link: https://etta0311.github.io/Group-project-1/
 ## Table of Contents
    - User Story
    - Overview
